@@ -79,15 +79,24 @@ app.post('/api/workouts', (req, res) => {
         });
 });
 
-//   app.get('/api/workouts/range', (req, res) => {
-//     db.Workout.find({})
-//     .then(dbNote => {
-//       res.json(dbNote);
-//     })
-//     .catch(err => {
-//       res.json(err);
-//     });
-//   });
+  app.get('/api/workouts/range', (req, res) => {
+    db.Workout.aggregate([
+        {
+          $addFields: {
+            totalDuration: {
+              $sum: '$exercises.duration'
+            }
+          }
+        }
+      ])
+        .then(data => {    
+            console.log(data);
+            res.send(data);
+        })
+        .catch(err => {
+            res.send(err);
+        });
+  });
 
 
 
