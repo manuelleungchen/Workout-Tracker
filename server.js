@@ -4,8 +4,6 @@ const mongoose = require("mongoose");
 const path = require("path");
 const compression = require("compression");
 
-
-
 const PORT = process.env.PORT || 3000
 
 const db = require("./models");
@@ -33,8 +31,17 @@ app.get("/exercise", (req, res) => res.sendFile(path.join(__dirname, '/public', 
 app.get("/stats", (req, res) => res.sendFile(path.join(__dirname, '/public', "stats.html")));
 
 app.get("/api/workouts", (req, res) => {
-    db.Workout.find({})
-        .then(data => {
+    db.Workout.aggregate([
+        {
+          $addFields: {
+            totalDuration: {
+              $sum: '$exercises.duration'
+            }
+          }
+        }
+      ])
+        .then(data => {    
+            console.log(data);
             res.send(data);
         })
         .catch(err => {
