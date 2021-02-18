@@ -47,7 +47,7 @@ The user should be able to:
 3. Run command ```npm install``` to install any dependencies.
 
 ## Usage    
-* Navigate to [Workout Tracker Site](https://desolate-headland-50731.herokuapp.com/stats).
+* Navigate to [Workout Tracker Site](https://desolate-headland-50731.herokuapp.com/).
 * Click on New Workout.
 * Pick Workout type.
 * Fill Workout Form.
